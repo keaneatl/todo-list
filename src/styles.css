@@ -1,0 +1,79 @@
+/* variables */
+:root{
+    --primary: #F4F1F8;
+    --secondary: #ffffff;
+    --tertiary: #000000;
+}
+
+/* base styles */
+html{
+    font-size: 16px;
+}
+
+/* fonts */
+body{
+    font-family: Helvetica;
+}
+
+.logo-text{
+    font-size: 1.8rem;
+    font-weight: bolder;    
+}
+
+.footer{
+    font-size: 0.8rem;
+}
+
+/* mobile styles */
+.main-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.sidebar{
+    display: none;
+}
+
+.logo{
+    width: 2rem;
+    margin: 0.5rem 0.7rem 0 0.5rem;
+}
+
+.ico{
+    cursor: pointer;
+    width: 1.2rem;
+    margin: 0 0.8rem;
+}
+
+.display{
+    height: 100vh;
+    background-color: var(--primary);
+}
+
+.display-h{
+/*     background-color: blue; */
+    background-color: var(--secondary);
+    padding: 5%;
+    display: flex;
+    align-items: center;
+    border-bottom: 0.3rem solid var(--tertiary);
+}
+
+.display-rh{
+    position: fixed;
+    right: 0;
+}
+
+.footer{
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    padding: 0.8rem 0.5% 0.5rem 0.5%;
+    width: 70%;
+    text-align: center;
+    margin: 0 auto;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom: 1rem;
+}
