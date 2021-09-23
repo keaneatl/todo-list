@@ -16,8 +16,12 @@ body{
 }
 
 .logo-text{
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bolder;    
+}
+
+.home, .projects{
+    font-size: 1.23rem;
 }
 
 .footer{
@@ -27,9 +31,6 @@ body{
 /* mobile styles */
 .main-container{
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 .sidebar{
     display: none;
@@ -52,7 +53,6 @@ body{
 }
 
 .display-h{
-/*     background-color: blue; */
     background-color: var(--secondary);
     padding: 5%;
     display: flex;
@@ -62,7 +62,7 @@ body{
 
 .display-rh{
     position: fixed;
-    right: 0;
+    right: 2rem;
 }
 
 .footer{
@@ -77,3 +77,54 @@ body{
     transform: translate(-50%, 0);
     bottom: 1rem;
 }
+
+/* large tablet styles */
+@media (min-width: 800px){
+    html{
+        font-size: 18px;
+    }
+    .sidebar{
+        z-index: 1;
+        box-shadow: 2px 5px 5px black;
+        padding: 1.3rem;
+        max-width: 13rem;
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        
+     }
+    
+    .display-h{
+        border-bottom: 0;
+        background-color: transparent;
+    }
+    
+    .display{
+        width: 85%;
+    }
+    
+    .home{
+        margin-top: 3rem;
+    }
+    
+    .home-item, .project-item{
+        margin: 1rem;
+    }
+    
+    .projects{
+        margin-top: 3rem;
+    }
+    
+    .hambg{
+        display: none;
+    }
+     .main-container{
+        display: flex;
+     } 
+    
+    .footer{
+        width: 40%;
+        left: 63%;
+    }
+}
+
