@@ -11,6 +11,7 @@
 <body>
 <div class="main-container">
     <div class="sidebar">
+        <img src="./images/icons/close-svgrepo-com.svg" class="ico close-hambg">
         <header class="sidebar-h">
                 <img src="./images/icons/check-svgrepo-com(1).svg" class="logo"><span class="logo-text">ToDoIt</span>
         </header>
@@ -38,14 +39,27 @@
     <div class="display">
             <div class="display-h">
                 <h1 class="display-lh">Inbox</h1>
-            
                 <div class="display-rh">
                     <img src="./images/icons/github-svgrepo-com.svg" class="ico">
                     <img src="./images/icons/person-sharp-svgrepo-com.svg" class="ico">
                     <img src="./images/icons/hamburger-menu-svgrepo-com.svg" class="hambg ico">
                 </div> 
             </div>
-        <p>content</p>
+
+        <div class="task">
+            <span class="task-h"><img class="ico checkbox" src="./images/icons/circle-svgrepo-com.svg">Visit Keane's Github Profile</span>
+            <input type="date" class="due-date">
+            <p class="task-desc">It's awesome and you'll see a lot of cool projects</p>
+        </div>
+
+        <div class="task">
+            <img class="ico checkbox" src="./images/icons/circle-svgrepo-com.svg"><span class="task-h"><input type="text" placeholder="Title" class="task-h-input"></span>
+            <input type="date" class="due-date">
+            <p class="task-desc"><input type="text" placeholder="Description" class="task-desc-input"></p>
+        </div>
+
+        <div class="add-task">Add a task</div>
+
         <div class="footer">Made by Keane Andre</div>
     </div>
 

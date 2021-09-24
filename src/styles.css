@@ -24,17 +24,50 @@ body{
     font-size: 1.23rem;
 }
 
+.add-task{
+    font-size: 0.7rem;
+}
+
 .footer{
     font-size: 0.8rem;
+}
+
+.task-h{
+    font-size: 1.2rem;
+    font-weight: bolder;
 }
 
 /* mobile styles */
 .main-container{
     width: 100%;
 }
+
 .sidebar{
     display: none;
 }
+
+.show-sb{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.close-hambg{
+    padding: 1.5rem 0;
+}
+
+ .home{
+        margin-top: 3rem;
+    }
+    
+ .home-item, .project-item{
+        margin: 1rem;
+    }
+    
+ .projects{
+        margin-top: 3rem;
+    }
 
 .logo{
     width: 2rem;
@@ -44,12 +77,17 @@ body{
 .ico{
     cursor: pointer;
     width: 1.2rem;
-    margin: 0 0.8rem;
+    margin: 0 0.4rem;
 }
 
 .display{
+    width: 100%;
     height: 100vh;
     background-color: var(--primary);
+}
+
+.hide-disp{
+    display: none;
 }
 
 .display-h{
@@ -62,7 +100,46 @@ body{
 
 .display-rh{
     position: fixed;
-    right: 2rem;
+    right: 1rem;
+}
+
+.task{
+    padding: 0.5rem;
+    background-color: white;
+    text-align: justify;
+    margin: 1rem auto;
+    width: 85%;
+    max-width: 25rem;
+}
+
+.task-desc{
+    margin: 0 auto;
+    max-width: 19.5rem;
+}
+
+.checkbox{
+    padding-right: 1rem;
+    position: relative;
+    top: 0.15rem;
+    left: 1rem;
+}
+
+.due-date{
+    margin: 0.5rem 0;
+}
+
+.add-task{
+    cursor: pointer;
+    background-color: var(--tertiary);
+    color: var(--secondary);
+    padding: 0.5rem;
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.task-h-input, .task-desc-input{
+    border: 0;
 }
 
 .footer{
@@ -103,16 +180,8 @@ body{
         width: 85%;
     }
     
-    .home{
-        margin-top: 3rem;
-    }
-    
-    .home-item, .project-item{
-        margin: 1rem;
-    }
-    
-    .projects{
-        margin-top: 3rem;
+    .ico{
+        margin: 0 0.8rem;
     }
     
     .hambg{
