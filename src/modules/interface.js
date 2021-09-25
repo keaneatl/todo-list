@@ -29,7 +29,8 @@ const generateTaskDOM = task => {
     const taskCheck = document.createElement('img');
     const taskTitle = document.createElement('span');
     const taskTitleInput = document.createElement('input');
-    const dueDate = document.createElement('input');
+    const dueDate = document.createElement('p');
+    const dueDateInput = document.createElement('input');
     const taskDesc = document.createElement('p');
     const taskDescInput = document.createElement('input');
 
@@ -44,13 +45,14 @@ const generateTaskDOM = task => {
     taskCheck.src = "./images/icons/circle-svgrepo-com.svg";
     taskTitleInput.type = 'text';
     taskTitleInput.placeholder = 'Title';
-    dueDate.type = 'date';
+    dueDateInput.type = 'date';
     taskDescInput.type = 'text';
     taskDescInput.placeholder = 'Description'
     taskCheck.addEventListener('click', () => taskContainer.remove());
     
     taskTitle.append(taskCheck, taskTitleInput);
     taskDesc.append(taskDescInput);
+    dueDate.append(dueDateInput);
     taskContainer.append(taskTitle, dueDate, taskDesc);
 
     addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
@@ -59,8 +61,10 @@ const generateTaskDOM = task => {
         taskTitle.append(taskTitleInput.value);
         taskTitleInput.remove();
     });
-    dueDate.addEventListener('change', () => {
+    dueDateInput.addEventListener('change', () => {
+        dueDate.append(dueDateInput.value);
         console.log(dueDate.value);
+        dueDateInput.remove();
     })
     taskDescInput.addEventListener('change', () => {
         taskDesc.append(taskDescInput.value);
