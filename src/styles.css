@@ -32,7 +32,7 @@ body{
     font-size: 0.8rem;
 }
 
-.task-h{
+.task-h, .task-h-input{
     font-size: 1.2rem;
     font-weight: bolder;
 }
@@ -50,7 +50,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100%;
 }
 
 .close-hambg{
@@ -82,7 +82,7 @@ body{
 
 .display{
     width: 100%;
-    height: 100vh;
+   height: 100%;
     background-color: var(--primary);
 }
 
@@ -91,6 +91,10 @@ body{
 }
 
 .display-h{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 3rem;
     background-color: var(--secondary);
     padding: 5%;
     display: flex;
@@ -103,13 +107,31 @@ body{
     right: 1rem;
 }
 
+.tasks-container{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.task-1{
+    padding: 0.5rem;
+    background-color: white;
+    text-align: left;
+    margin: 6.8rem auto 1.5rem auto;
+    width: 85%;
+    max-width: 25rem;
+}
+
 .task{
     padding: 0.5rem;
     background-color: white;
     text-align: justify;
-    margin: 1rem auto;
+    margin: 1rem auto 1.5rem auto;
     width: 85%;
     max-width: 25rem;
+}
+
+.task-h-input, .task-desc-input{
+    width: 90%;
 }
 
 .task-desc{
@@ -118,10 +140,7 @@ body{
 }
 
 .checkbox{
-    padding-right: 1rem;
-    position: relative;
-    top: 0.15rem;
-    left: 1rem;
+    padding: 0 0.5rem 0 1rem;
 }
 
 .due-date{
@@ -135,7 +154,7 @@ body{
     padding: 0.5rem;
     width: 30%;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 auto 4.2rem auto;
 }
 
 .task-h-input, .task-desc-input{
@@ -155,8 +174,20 @@ body{
     bottom: 1rem;
 }
 
+/* small tablet styles */
+@media (min-width: 500px){
+    .task-1{
+        padding: 0.5rem;
+        background-color: white;
+        text-align: justify;
+        margin: 8rem auto 1.5rem auto;
+        width: 85%;
+        max-width: 25rem;
+    }
+}
+
 /* large tablet styles */
-@media (min-width: 800px){
+@media (min-width: 670px){
     html{
         font-size: 18px;
     }
@@ -178,6 +209,15 @@ body{
     
     .display{
         width: 85%;
+    }
+    
+    .task-1{
+        padding: 0.5rem;
+        background-color: white;
+        text-align: justify;
+        margin: 5.4rem auto 1.5rem auto;
+        width: 85%;
+        max-width: 25rem;
     }
     
     .ico{
