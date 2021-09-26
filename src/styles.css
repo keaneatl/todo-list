@@ -60,14 +60,23 @@ body{
  .home{
         margin-top: 3rem;
     }
+
+ .home-heading, .projects-heading{
+     cursor: pointer;
+ }
     
  .home-item, .project-item{
+        cursor:pointer;
         margin: 1rem;
     }
     
  .projects{
         margin-top: 3rem;
     }
+
+ .proj-title-input{
+     width: 50%;
+ }
 
 .logo{
     width: 2rem;
@@ -108,15 +117,16 @@ body{
 }
 
 .tasks-container{
-    height: 100vh;
-    overflow-y: scroll;
+    padding: 5%;
+    min-height: 100vh;
+    height: 100%;
 }
 
-.task-1{
+#task-1{
     padding: 0.5rem;
     background-color: white;
     text-align: left;
-    margin: 6.8rem auto 1.5rem auto;
+    margin: 5rem auto 1.5rem auto;
     width: 85%;
     max-width: 25rem;
 }
@@ -125,7 +135,7 @@ body{
     padding: 0.5rem;
     background-color: white;
     text-align: justify;
-    margin: 1rem auto 1.5rem auto;
+    margin: 5rem auto 0 auto;
     width: 85%;
     max-width: 25rem;
 }
@@ -154,7 +164,7 @@ body{
     padding: 0.5rem;
     width: 30%;
     text-align: center;
-    margin: 0 auto 4.2rem auto;
+    margin: 5rem auto 4.2rem auto;
 }
 
 .task-h-input, .task-desc-input{
@@ -184,6 +194,10 @@ body{
         width: 85%;
         max-width: 25rem;
     }
+    
+    .tasks-container{
+            margin-top: 1rem;
+    }
 }
 
 /* large tablet styles */
@@ -192,15 +206,20 @@ body{
         font-size: 18px;
     }
     .sidebar{
+        position: fixed;
+        height: 100%;
         z-index: 1;
         box-shadow: 2px 5px 5px black;
         padding: 1.3rem;
         max-width: 13rem;
-        width: 30%;
+        width: 15rem;
         display: flex;
         flex-direction: column;
-        
      }
+    
+    .close-hambg{
+        display: none;
+    }
     
     .display-h{
         border-bottom: 0;
@@ -208,16 +227,8 @@ body{
     }
     
     .display{
-        width: 85%;
-    }
-    
-    .task-1{
-        padding: 0.5rem;
-        background-color: white;
-        text-align: justify;
-        margin: 5.4rem auto 1.5rem auto;
-        width: 85%;
-        max-width: 25rem;
+        margin-left: 15.5rem;
+        width: 100%;
     }
     
     .ico{
@@ -232,8 +243,8 @@ body{
      } 
     
     .footer{
-        width: 40%;
-        left: 63%;
+        width: 10rem;
+        left: 7.6rem;
     }
 }
 

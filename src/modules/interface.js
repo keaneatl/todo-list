@@ -1,4 +1,6 @@
 import { addTask } from "./task";
+import { addProj } from "./project";
+import { projectsController } from "./project";
 
 const hamBurger = (() => {
     
@@ -23,8 +25,9 @@ const hamBurger = (() => {
     })
 })();
 
-const generateTaskDOM = task => {
+const generateTaskDOM = project => {
     const addTaskBtn = document.querySelector('.add-task')
+    const header = document.querySelector('.display-lh');
     const taskContainer = document.createElement('div');
     const taskCheck = document.createElement('img');
     const taskTitle = document.createElement('span');
@@ -60,10 +63,10 @@ const generateTaskDOM = task => {
     taskTitleInput.addEventListener('change', () => {
         taskTitle.append(taskTitleInput.value);
         taskTitleInput.remove();
+        console.log(projectsController.defaultProject.tasks)
     });
     dueDateInput.addEventListener('change', () => {
         dueDate.append(dueDateInput.value);
-        console.log(dueDate.value);
         dueDateInput.remove();
     })
     taskDescInput.addEventListener('change', () => {
@@ -71,7 +74,7 @@ const generateTaskDOM = task => {
         taskDescInput.remove();
     });
 
-    addTask();
+    addTask(header.textContent);
 };
 
 
@@ -80,6 +83,50 @@ const renderTaskDOM = (()=> {
     addTaskBtn.addEventListener('click', generateTaskDOM);
 })();
 
+const generateProjTitleDOM = () => {
+    const projContainer = document.querySelector('.project-items-ul');
+    const projItem = document.createElement('li');
+    const projIcon = document.createElement('img');
+    const projTitle = document.createElement('span');
+    const projTitleInput = document.createElement('input');
 
+    projItem.classList.add('project-item');
+    projIcon.classList.add('ico');
+    projIcon.classList.add('add-proj');
+    projIcon.src = './images/icons/task-list-svgrepo-com.svg';
+    projTitleInput.type = 'text';
+    projTitleInput.placeholder = 'Project Name';
+    projTitleInput.classList.add('proj-title-input');
 
-export { hamBurger, renderTaskDOM, generateTaskDOM};
+    projTitleInput.addEventListener('change', () => {
+        projTitle.append(projTitleInput.value);
+        projTitleInput.remove();
+        generateNewProjDOM(projTitle.textContent);
+    })
+
+    projTitle.append(projTitleInput);
+    projItem.append(projIcon, projTitle);
+    projContainer.append(projItem);
+
+    addProj();
+
+    return { projTitle }
+}
+
+const generateNewProjDOM = ((projTitle) => {
+    const currentTasks = Array.from(document.querySelectorAll('.task'));
+    const header = document.querySelector('.display-lh');
+
+    if (currentTasks !== null){
+        currentTasks.forEach(task => task.remove());
+        header.textContent = projTitle;
+    };
+
+})
+
+const newProject = (() => {
+    const newProjBtn = document.querySelector('.add-proj');
+    newProjBtn.addEventListener('click', generateProjTitleDOM);
+})();
+
+export { hamBurger, renderTaskDOM, generateTaskDOM, generateNewProjDOM, newProject };
