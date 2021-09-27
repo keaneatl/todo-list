@@ -1,5 +1,5 @@
-import { generateTaskDOM } from "./interface";
-import { addProj,projectsController } from "./project";
+import { generateTaskDOM, newProject } from "./interface";
+import { addProj, projectsController } from "./project";
 
 const taskFactory = (title, desc, dueDate) => {
     const clearTask = () => {
@@ -7,20 +7,6 @@ const taskFactory = (title, desc, dueDate) => {
     }
 
     return {title, desc, dueDate}
-}
-
-const tasksController = () => {
-    let tasks = Array.from(document.querySelectorAll('.task'));
-
-    tasks.forEach((task, i) => {
-        const removeTask = task.querySelector('.checkbox');
-
-        removeTask.addEventListener('click', () => {
-            projectsController.defaultProject.tasks.splice(i, 1)
-            tasksController;
-            connsole.log(projectsController.defaultProject.tasks)
-        })
-    })
 }
 
 const addTask = (project) => {
@@ -38,7 +24,8 @@ const addTask = (project) => {
             const taskDesc = task.childNodes[2];
             
             removeTask.addEventListener('click', () => {
-                projectsController.defaultProject.tasks.splice(i, 1);
+                const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(newTask);
+                projectsController.defaultProject.tasks.splice(thisTaskIndex, 1);
             })
             taskHeader.addEventListener('change', () => {
                 newTask.title = taskHeader.childNodes[1].nodeValue;
@@ -48,14 +35,12 @@ const addTask = (project) => {
             })
             dueDate.addEventListener('change', () => {
                 newTask.dueDate = dueDate.childNodes[0].nodeValue;
-            })
-        tasksController;   
-        projectsController.defaultProject.tasks.push(newTask)
-        console.log(projectsController.defaultProject.tasks);
+            }) 
+        projectsController.defaultProject.tasks.push(newTask);
         });
     }
 
-    const currentTasks = [];
+    const header = document.querySelector('.display-lh');
     tasks.forEach((task, i) => {
         const taskHeader = task.childNodes[0];
         const dueDate = task.childNodes[1];
@@ -69,10 +54,30 @@ const addTask = (project) => {
              dueDate.addEventListener('change', () => {
                  newTask.dueDate = dueDate.childNodes[0].nodeValue;
              });
-             currentTasks.push(task);
-        })
-    addProj().newProject.tasks = currentTasks;
+
+
+            const existingProject = projectsController.projectsArray.find( project => {
+                    project[0];
+                });
+                console.log(existingProject)
+                // existingProject[1].push(task);
+            })
+
     return { newTask }
 };
 
 export { addTask }
+
+// //backup code
+// if(projectsController.projectsArray.some((project, i) => {
+//     project[0] === header.textContent;
+// })){
+//     const existingProject = projectsController.projectsArray.find( project => {
+//         project[0] === header.textContent;
+//     });
+//     existingProject[1].push(task)
+//     addProj().newProject.tasks = currentTasks;
+// }
+// else {
+//     addProj()
+// }

@@ -8,23 +8,29 @@ const projectFactory = (projectName) => {
 }
 
 const projectsController = (() => {
-    const defaultProject = projectFactory('default');
-    let projectsArray = [defaultProject];
+    const defaultProject = projectFactory('inbox');
+    let projectsArray = [];
 
     return { projectsArray, defaultProject }
 })();
 
 const addProj = (type => {
     const projectItemsArray = Array.from(document.querySelectorAll('.project-item'));
-    const newProject = projectFactory()
+    const newProject = projectFactory(type);
+    newProject.projectName = type;
 
     projectItemsArray.forEach(project => {
-        project.addEventListener('change', () => {
-            const projTitle = project.childNodes[1];
-            newProject.projectName = projTitle.childNodes[0].nodeValue;
-            projectsController.projectsArray.push(newProject);
-            console.log(projectsController.projectsArray);
-        });
+        const projTitle = project.childNodes[1]
+        if (projTitle.childNodes[0].textContent !== type)return;
+        const closeProj = project.childNodes[2];
+
+        closeProj.addEventListener('click', () => {
+            const projectIndex =  projectsController.projectsArray.indexOf(newProject);
+            projectsController.projectsArray.splice(projectIndex, 1);
+        })
+
+        projectsController.projectsArray.push(newProject);
+        console.log(newProject)
     });
 
     return { newProject }
@@ -32,3 +38,10 @@ const addProj = (type => {
     
 
 export { addProj, projectsController }
+
+// backup code
+// project.addEventListener('change', () => {
+//     newProject.projectName = projTitle.childNodes[0].nodeValue;
+//     projectsController.projectsArray.push(newProject);
+//     console.log(newProject);
+// });

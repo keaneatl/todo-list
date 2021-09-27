@@ -63,7 +63,6 @@ const generateTaskDOM = project => {
     taskTitleInput.addEventListener('change', () => {
         taskTitle.append(taskTitleInput.value);
         taskTitleInput.remove();
-        console.log(projectsController.defaultProject.tasks)
     });
     dueDateInput.addEventListener('change', () => {
         dueDate.append(dueDateInput.value);
@@ -87,6 +86,7 @@ const generateProjTitleDOM = () => {
     const projContainer = document.querySelector('.project-items-ul');
     const projItem = document.createElement('li');
     const projIcon = document.createElement('img');
+    const closeIcon = document.createElement('img');
     const projTitle = document.createElement('span');
     const projTitleInput = document.createElement('input');
 
@@ -94,6 +94,8 @@ const generateProjTitleDOM = () => {
     projIcon.classList.add('ico');
     projIcon.classList.add('add-proj');
     projIcon.src = './images/icons/task-list-svgrepo-com.svg';
+    closeIcon.classList.add('close-proj');
+    closeIcon.src = './images/icons/close-svgrepo-com.svg';
     projTitleInput.type = 'text';
     projTitleInput.placeholder = 'Project Name';
     projTitleInput.classList.add('proj-title-input');
@@ -101,16 +103,18 @@ const generateProjTitleDOM = () => {
     projTitleInput.addEventListener('change', () => {
         projTitle.append(projTitleInput.value);
         projTitleInput.remove();
-        generateNewProjDOM(projTitle.textContent);
+        projTitle.addEventListener('click', () => generateNewProjDOM(projTitle.textContent))
+        projIcon.addEventListener('click', () => generateNewProjDOM(projTitle.textContent));
+        addProj(projTitle.textContent);
+    })
+    closeIcon.addEventListener('click', () => {
+        projItem.remove();
     })
 
     projTitle.append(projTitleInput);
-    projItem.append(projIcon, projTitle);
+    projItem.append(projIcon, projTitle, closeIcon);
     projContainer.append(projItem);
 
-    addProj();
-
-    return { projTitle }
 }
 
 const generateNewProjDOM = ((projTitle) => {
