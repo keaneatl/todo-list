@@ -1,6 +1,7 @@
 import { addTask } from "./task";
 import { addProj } from "./project";
 import { projectsController } from "./project";
+import { renderProject } from "./switchDOM";
 
 const hamBurger = (() => {
     
@@ -25,7 +26,7 @@ const hamBurger = (() => {
     })
 })();
 
-const generateTaskDOM = (title, desc, due) => {
+const generateTaskDOM = () => {
     const addTaskBtn = document.querySelector('.add-task')
     const header = document.querySelector('.display-lh');
     const taskContainer = document.createElement('div');
@@ -33,6 +34,9 @@ const generateTaskDOM = (title, desc, due) => {
     const taskTitle = document.createElement('span');
     const taskDesc = document.createElement('p');
     const dueDate = document.createElement('p');
+    const taskTitleInput = document.createElement('input');
+    const taskDescInput = document.createElement('input');
+    const dueDateInput = document.createElement('input');
 
     taskContainer.classList.add('task');
     taskTitle.classList.add('task-h');
@@ -43,10 +47,6 @@ const generateTaskDOM = (title, desc, due) => {
     
     taskCheck.addEventListener('click', () => taskContainer.remove());
 
-    if (title === undefined && desc === undefined && due === undefined){
-        const taskTitleInput = document.createElement('input');
-        const taskDescInput = document.createElement('input');
-        const dueDateInput = document.createElement('input');
         taskTitleInput.classList.add('task-h-input');
         taskDescInput.classList.add('task-desc-input');
         taskTitleInput.type = 'text';
@@ -54,10 +54,6 @@ const generateTaskDOM = (title, desc, due) => {
         dueDateInput.type = 'date';
         taskDescInput.type = 'text';
         taskDescInput.placeholder = 'Description';
-
-        taskTitle.append(taskCheck, taskTitleInput)
-        taskDesc.append(taskDescInput);
-        dueDate.append(dueDateInput);
 
         taskTitleInput.addEventListener('change', () => {
             taskTitle.append(taskTitleInput.value);
@@ -71,22 +67,14 @@ const generateTaskDOM = (title, desc, due) => {
             taskDesc.append(taskDescInput.value);
             taskDescInput.remove();
         });
-        
-    }
-    // continue work here - tasks somehow lose their ability to be spliced
-    // from the array
-    else {
-        console.log(projectsController.defaultProject.tasks)
-        taskTitle.append(taskCheck, title);
-        dueDate.textContent = due;
-        taskDesc.textContent = desc;
-    }
-    
-    taskContainer.append(taskTitle, dueDate, taskDesc);
-    addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
+        taskTitle.append(taskCheck, taskTitleInput)
+        taskDesc.append(taskDescInput);
+        dueDate.append(dueDateInput);
 
-    addTask(header.textContent);
-    console.log(header.textContent)
+        taskContainer.append(taskTitle, dueDate, taskDesc);
+        addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
+
+        addTask(header.textContent);
      
 };
 
@@ -117,8 +105,7 @@ const generateProjTitleDOM = () => {
     projTitleInput.addEventListener('change', () => {
         projTitle.append(projTitleInput.value);
         projTitleInput.remove();
-        projTitle.addEventListener('click', () => generateNewProjDOM(projTitle.textContent))
-        projIcon.addEventListener('click', () => generateNewProjDOM(projTitle.textContent));
+        projItem.addEventListener('click', () => renderProject(projTitle.textContent));
         addProj(projTitle.textContent);
     })
     closeIcon.addEventListener('click', () => {
@@ -127,24 +114,79 @@ const generateProjTitleDOM = () => {
 
     projTitle.append(projTitleInput);
     projItem.append(projIcon, projTitle, closeIcon);
+    
     projContainer.append(projItem);
 
 }
-
-const generateNewProjDOM = ((projTitle) => {
-    const currentTasks = Array.from(document.querySelectorAll('.task'));
-    const header = document.querySelector('.display-lh');
-
-    if (currentTasks !== null){
-        currentTasks.forEach(task => task.remove());
-        header.textContent = projTitle;
-    };
-
-})
 
 const newProject = (() => {
     const newProjBtn = document.querySelector('.add-proj');
     newProjBtn.addEventListener('click', generateProjTitleDOM);
 })();
 
-export { hamBurger, generateTaskDOM, renderTaskDOM, generateNewProjDOM, newProject };
+export { hamBurger, generateTaskDOM, renderTaskDOM, newProject };
+
+// backup code
+// const generateTaskDOM = (title, desc, due) => {
+//     const addTaskBtn = document.querySelector('.add-task')
+//     const header = document.querySelector('.display-lh');
+//     const taskContainer = document.createElement('div');
+//     const taskCheck = document.createElement('img');
+//     const taskTitle = document.createElement('span');
+//     const taskDesc = document.createElement('p');
+//     const dueDate = document.createElement('p');
+
+//     taskContainer.classList.add('task');
+//     taskTitle.classList.add('task-h');
+//     taskCheck.classList.add('ico', 'checkbox');
+//     dueDate.classList.add('due-date');
+//     taskDesc.classList.add('task-desc');
+//     taskCheck.src = "./images/icons/circle-svgrepo-com.svg";
+    
+//     taskCheck.addEventListener('click', () => taskContainer.remove());
+
+//     if (title === undefined && desc === undefined && due === undefined){
+//         const taskTitleInput = document.createElement('input');
+//         const taskDescInput = document.createElement('input');
+//         const dueDateInput = document.createElement('input');
+//         taskTitleInput.classList.add('task-h-input');
+//         taskDescInput.classList.add('task-desc-input');
+//         taskTitleInput.type = 'text';
+//         taskTitleInput.placeholder = 'Title';
+//         dueDateInput.type = 'date';
+//         taskDescInput.type = 'text';
+//         taskDescInput.placeholder = 'Description';
+
+//         taskTitleInput.addEventListener('change', () => {
+//             taskTitle.append(taskTitleInput.value);
+//             taskTitleInput.remove();
+//         });
+//         dueDateInput.addEventListener('change', () => {
+//             dueDate.append(dueDateInput.value);
+//             dueDateInput.remove();
+//         })
+//         taskDescInput.addEventListener('change', () => {
+//             taskDesc.append(taskDescInput.value);
+//             taskDescInput.remove();
+//         });
+//         taskTitle.append(taskCheck, taskTitleInput)
+//         taskDesc.append(taskDescInput);
+//         dueDate.append(dueDateInput);
+
+//         taskContainer.append(taskTitle, dueDate, taskDesc);
+//         addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
+
+//         addTask(header.textContent);
+//     }
+//     // continue work here - tasks somehow lose their ability to be spliced
+//     // from the array
+//     else {
+//         console.log(projectsController.defaultProject.tasks)
+//         taskTitle.append(taskCheck, title);
+//         dueDate.textContent = due;
+//         taskDesc.textContent = desc;
+//         taskContainer.append(taskTitle, dueDate, taskDesc);
+//         addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
+//     }   
+     
+// };

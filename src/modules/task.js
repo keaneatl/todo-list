@@ -15,9 +15,12 @@ const addTask = (project) => {
 
     if (project === 'Inbox'){
         tasks.forEach((task, i) => {
+            console.log(project);
+            console.log(task)
             const taskHeaderText = task.querySelector('.task-h');
-            if (taskHeaderText.textContent !== "")return;
+            // if (taskHeaderText.textContent !== "")return;
             const removeTask = task.querySelector('.checkbox');
+            console.log(removeTask)
 
             const taskHeader = task.childNodes[0];
             const dueDate = task.childNodes[1];
@@ -25,8 +28,11 @@ const addTask = (project) => {
             
             removeTask.addEventListener('click', () => {
                 const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(newTask);
+                console.log(thisTaskIndex)
                 projectsController.defaultProject.tasks.splice(thisTaskIndex, 1);
+                
                 console.log('removed')
+                console.log(projectsController.defaultProject.tasks)
             })
             taskHeader.addEventListener('change', () => {
                 newTask.title = taskHeader.childNodes[1].nodeValue;
