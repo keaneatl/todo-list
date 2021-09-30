@@ -1,8 +1,6 @@
-// TTD:
-
-// 2) When you click a project, it clears the display DOM, finds the project object 
-// from the projects array, and its tasks property array, loop through it,
-// then render it to the DOM
+// For Improvement:
+// In checking whether the task belongs to a specific project, use data index instead of 
+// matching the task titles
 import { projectsController } from "./project";
 import { generateTaskDOM } from "./interface";
 
@@ -17,17 +15,15 @@ const renderHome = (() => {
             currentRenderedTasks.forEach(task => task.setAttribute('style', 'display:none;'));
             header.textContent = 'Inbox';
 
-            for (let i = 0; i < projectsController.defaultProject.tasks.length; i++){
-                const homeTask = projectsController.defaultProject.tasks[i];
-                const currentTaskH = currentRenderedTasks[i];
-                if (homeTask['title'] === currentTaskH.childNodes[0].textContent){
-                    currentRenderedTasks[i].removeAttribute('style');
-                }
-            }
+            projectsController.defaultProject.tasks.forEach(task => {
+                for (let i = 0; i < currentRenderedTasks.length; i++){
+                    if (task['title'] === currentRenderedTasks[i].childNodes[0].textContent){
+                        currentRenderedTasks[i].removeAttribute('style');
+                    }
+                };
+            });
         }
-
     }
-
     home.addEventListener('click', renderHomeDOM);
     inbox.addEventListener('click', renderHomeDOM);
 })();
@@ -44,39 +40,21 @@ const renderProject = (projTitle) => {
         if (header.textContent === projTitle){
             const currentRenderedTasks = Array.from(document.querySelectorAll('.task'));
 
-            projectsController.projectsArray.forEach((proj, index) => {
-                    if (proj['projectName'] === projTitle){
-                        const respectiveTasks = proj['tasks'];
-
-                        for (let i = 0; i < respectiveTasks.length; i++){
-                            const respectiveTask = respectiveTasks[i]
-                            console.log(respectiveTask['title'])
-                            const currentTaskH = currentRenderedTasks[i];
-                            console.log(currentTaskH.childNodes[0].textContent)
-                            // continue work here, look for the respective tasks within the rendered tasks
-                            // and unhide it
-                            if (respectiveTask['title'] === currentTaskH.childNodes[0].textContent){
-                                console.log(currentRenderedTasks[i])
+            projectsController.projectsArray.forEach(proj => {
+                if (proj['projectName'] === projTitle){
+                    console.log(proj)
+                    proj['tasks'].forEach(task => {
+                        for (let i = 0; i < currentRenderedTasks.length; i++){
+                            if (task['title'] === currentRenderedTasks[i].childNodes[0].textContent){
                                 currentRenderedTasks[i].removeAttribute('style');
                             }
-                        }
-                    }
-                })
-                // const currentTaskH = task.childNodes[0];
-                // if (projTask['title'] === currentTaskH.childNodes[1].nodeValue){
-                //     task.removeAttribute('style');
-                // }
-           
+                        };
+                    });
+                }
+            })
         }
         console.log(project)
     })
 };
 
 export {renderHome, renderProject}
-
-//backup code
-            // projectsController.defaultProject.tasks.forEach(task => {
-                
-            //     generateTaskDOM(task['title'], task['desc'], task['dueDate']);
-            //     console.log(projectsController.defaultProject.tasks)
-            // })

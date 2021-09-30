@@ -15,25 +15,14 @@ const addTask = (project) => {
 
     if (project === 'Inbox'){
         tasks.forEach((task, i) => {
-            console.log(project);
-            console.log(task)
             const taskHeaderText = task.querySelector('.task-h');
-            // if (taskHeaderText.textContent !== "")return;
+            if (taskHeaderText.textContent !== "")return;
             const removeTask = task.querySelector('.checkbox');
-            console.log(removeTask)
 
             const taskHeader = task.childNodes[0];
             const dueDate = task.childNodes[1];
             const taskDesc = task.childNodes[2];
             
-            removeTask.addEventListener('click', () => {
-                const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(newTask);
-                console.log(thisTaskIndex)
-                projectsController.defaultProject.tasks.splice(thisTaskIndex, 1);
-                
-                console.log('removed')
-                console.log(projectsController.defaultProject.tasks)
-            })
             taskHeader.addEventListener('change', () => {
                 newTask.title = taskHeader.childNodes[1].nodeValue;
             })
@@ -44,6 +33,14 @@ const addTask = (project) => {
                 newTask.dueDate = dueDate.childNodes[0].nodeValue;
             }) 
         projectsController.defaultProject.tasks.push(newTask);
+        removeTask.addEventListener('click', () => {
+            const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(newTask);
+            console.log(thisTaskIndex)
+            projectsController.defaultProject.tasks.splice(thisTaskIndex, 1);
+            
+            console.log('removed')
+            console.log(projectsController.defaultProject.tasks)
+        })
         });
     }
     else {

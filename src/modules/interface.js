@@ -106,6 +106,7 @@ const generateProjTitleDOM = () => {
         projTitle.append(projTitleInput.value);
         projTitleInput.remove();
         projItem.addEventListener('click', () => renderProject(projTitle.textContent));
+        console.log(projTitle.textContent);
         addProj(projTitle.textContent);
     })
     closeIcon.addEventListener('click', () => {
