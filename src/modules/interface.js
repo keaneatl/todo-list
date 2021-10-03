@@ -26,7 +26,7 @@ const hamBurger = (() => {
     })
 })();
 
-const generateTaskDOM = () => {
+const generateTaskDOM = (title, desc, due) => {
     const addTaskBtn = document.querySelector('.add-task')
     const header = document.querySelector('.display-lh');
     const taskContainer = document.createElement('div');
@@ -34,9 +34,6 @@ const generateTaskDOM = () => {
     const taskTitle = document.createElement('span');
     const taskDesc = document.createElement('p');
     const dueDate = document.createElement('p');
-    const taskTitleInput = document.createElement('input');
-    const taskDescInput = document.createElement('input');
-    const dueDateInput = document.createElement('input');
 
     taskContainer.classList.add('task');
     taskTitle.classList.add('task-h');
@@ -47,6 +44,10 @@ const generateTaskDOM = () => {
     
     taskCheck.addEventListener('click', () => taskContainer.remove());
 
+    if (!title && !desc && !due){
+        const taskTitleInput = document.createElement('input');
+        const taskDescInput = document.createElement('input');
+        const dueDateInput = document.createElement('input');
         taskTitleInput.classList.add('task-h-input');
         taskDescInput.classList.add('task-desc-input');
         taskTitleInput.type = 'text';
@@ -75,8 +76,16 @@ const generateTaskDOM = () => {
         addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
 
         addTask(header.textContent);
-     
-};
+    }
+    else {
+        console.log(projectsController.defaultProject.tasks)
+        taskTitle.append(taskCheck, title);
+        dueDate.textContent = due;
+        taskDesc.textContent = desc;
+        taskContainer.append(taskTitle, dueDate, taskDesc);
+        addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
+    }  
+}
 
 
 const renderTaskDOM = (()=> { 
@@ -84,13 +93,12 @@ const renderTaskDOM = (()=> {
     addTaskBtn.addEventListener('click', () => generateTaskDOM());
 })();
 
-const generateProjTitleDOM = () => {
+const generateProjTitleDOM = (title) => {
     const projContainer = document.querySelector('.project-items-ul');
     const projItem = document.createElement('li');
     const projIcon = document.createElement('img');
     const closeIcon = document.createElement('img');
     const projTitle = document.createElement('span');
-    const projTitleInput = document.createElement('input');
 
     projItem.classList.add('project-item');
     projIcon.classList.add('ico');
@@ -98,37 +106,82 @@ const generateProjTitleDOM = () => {
     projIcon.src = './images/icons/task-list-svgrepo-com.svg';
     closeIcon.classList.add('close-proj');
     closeIcon.src = './images/icons/close-svgrepo-com.svg';
-    projTitleInput.type = 'text';
-    projTitleInput.placeholder = 'Project Name';
-    projTitleInput.classList.add('proj-title-input');
+    
+    if (!title){
+        const projTitleInput = document.createElement('input');
+        projTitleInput.type = 'text';
+        projTitleInput.placeholder = 'Project Name';
+        projTitleInput.classList.add('proj-title-input');
 
-    projTitleInput.addEventListener('change', () => {
-        projTitle.append(projTitleInput.value);
-        projTitleInput.remove();
-        projItem.addEventListener('click', () => renderProject(projTitle.textContent));
-        console.log(projTitle.textContent);
-        addProj(projTitle.textContent);
-    })
+        projTitleInput.addEventListener('change', () => {
+            projTitle.append(projTitleInput.value);
+            projTitleInput.remove();
+            projItem.addEventListener('click', () => renderProject(projTitle.textContent));
+            console.log(projTitle.textContent);
+            addProj(projTitle.textContent);
+        })
+        projTitle.append(projTitleInput);
+    }
+    else {
+        projTitle.textContent = title;
+        projItem.addEventListener('click', () => renderProject(title))
+        addProj(title);
+    }
+    
     closeIcon.addEventListener('click', () => {
         projItem.remove();
     })
-
-    projTitle.append(projTitleInput);
     projItem.append(projIcon, projTitle, closeIcon);
-    
     projContainer.append(projItem);
-
 }
 
 const newProject = (() => {
     const newProjBtn = document.querySelector('.add-proj');
-    newProjBtn.addEventListener('click', generateProjTitleDOM);
+    newProjBtn.addEventListener('click', () => generateProjTitleDOM());
 })();
 
 export { hamBurger, generateTaskDOM, renderTaskDOM, newProject };
 
+
 // backup code
-// const generateTaskDOM = (title, desc, due) => {
+
+// const generateProjTitleDOM = () => {
+//     const projContainer = document.querySelector('.project-items-ul');
+//     const projItem = document.createElement('li');
+//     const projIcon = document.createElement('img');
+//     const closeIcon = document.createElement('img');
+//     const projTitle = document.createElement('span');
+//     const projTitleInput = document.createElement('input');
+
+//     projItem.classList.add('project-item');
+//     projIcon.classList.add('ico');
+//     projIcon.classList.add('add-proj');
+//     projIcon.src = './images/icons/task-list-svgrepo-com.svg';
+//     closeIcon.classList.add('close-proj');
+//     closeIcon.src = './images/icons/close-svgrepo-com.svg';
+//     projTitleInput.type = 'text';
+//     projTitleInput.placeholder = 'Project Name';
+//     projTitleInput.classList.add('proj-title-input');
+
+//     projTitleInput.addEventListener('change', () => {
+//         projTitle.append(projTitleInput.value);
+//         projTitleInput.remove();
+//         projItem.addEventListener('click', () => renderProject(projTitle.textContent));
+//         console.log(projTitle.textContent);
+//         addProj(projTitle.textContent);
+//     })
+//     closeIcon.addEventListener('click', () => {
+//         projItem.remove();
+//     })
+
+//     projTitle.append(projTitleInput);
+//     projItem.append(projIcon, projTitle, closeIcon);
+    
+//     projContainer.append(projItem);
+
+// }
+
+// const generateTaskDOM = () => {
 //     const addTaskBtn = document.querySelector('.add-task')
 //     const header = document.querySelector('.display-lh');
 //     const taskContainer = document.createElement('div');
@@ -136,6 +189,9 @@ export { hamBurger, generateTaskDOM, renderTaskDOM, newProject };
 //     const taskTitle = document.createElement('span');
 //     const taskDesc = document.createElement('p');
 //     const dueDate = document.createElement('p');
+//     const taskTitleInput = document.createElement('input');
+//     const taskDescInput = document.createElement('input');
+//     const dueDateInput = document.createElement('input');
 
 //     taskContainer.classList.add('task');
 //     taskTitle.classList.add('task-h');
@@ -146,10 +202,6 @@ export { hamBurger, generateTaskDOM, renderTaskDOM, newProject };
     
 //     taskCheck.addEventListener('click', () => taskContainer.remove());
 
-//     if (title === undefined && desc === undefined && due === undefined){
-//         const taskTitleInput = document.createElement('input');
-//         const taskDescInput = document.createElement('input');
-//         const dueDateInput = document.createElement('input');
 //         taskTitleInput.classList.add('task-h-input');
 //         taskDescInput.classList.add('task-desc-input');
 //         taskTitleInput.type = 'text';
@@ -178,16 +230,5 @@ export { hamBurger, generateTaskDOM, renderTaskDOM, newProject };
 //         addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
 
 //         addTask(header.textContent);
-//     }
-//     // continue work here - tasks somehow lose their ability to be spliced
-//     // from the array
-//     else {
-//         console.log(projectsController.defaultProject.tasks)
-//         taskTitle.append(taskCheck, title);
-//         dueDate.textContent = due;
-//         taskDesc.textContent = desc;
-//         taskContainer.append(taskTitle, dueDate, taskDesc);
-//         addTaskBtn.insertAdjacentElement('beforebegin', taskContainer);
-//     }   
      
 // };

@@ -16,6 +16,22 @@ const projectsController = (() => {
 
 const addProj = (type => {
     const projectItemsArray = Array.from(document.querySelectorAll('.project-item'));
+    if (projectsController.projectsArray.some(project => {
+        project['projectName'] === type;
+    })){
+        projectItemsArray.projectsArray.forEach(project => {
+            const projTitle = project.childNodes[1]
+            if (projTitle.childNodes[0].textContent === type){
+                const closeProj = project.childNodes[2];
+                closeProj.addEventListener('click', () => {
+                    const projectIndex =  projectsController.projectsArray.indexOf(newProject);
+                    projectsController.projectsArray.splice(projectIndex, 1);
+                })
+            }
+        })
+    }
+
+    else{
     const newProject = projectFactory(type);
     newProject.projectName = type;
 
@@ -32,8 +48,9 @@ const addProj = (type => {
         projectsController.projectsArray.push(newProject);
         console.log(newProject)
     });
-
     return { newProject }
+    }
+    
 })
     
 
