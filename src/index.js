@@ -1,5 +1,5 @@
 import resetCSS from './reset.css';
-import { hamBurger, renderTaskDOM, newProject, generateTaskDOM } from './modules/interface';
+import { hamBurger, renderTaskDOM, newProject, generateTaskDOM, generateProjTitleDOM } from './modules/interface';
 import { addTask } from './modules/task';
 import { renderHome } from './modules/switchDOM';
 import { addProj, projectsController } from './modules/project';
@@ -8,31 +8,80 @@ import { addProj, projectsController } from './modules/project';
 // Logic to know which project we're in and load its respective task arrays to the DOM -- CLEAR --
 // Logic to sort tasks by date
 // save everything to local storage
-// const saveProjects = (() => {
 
-//     const _storeProjects = () => {
-//         const currentProjects = projectsController.projectsArray;
-//         localStorage.setItem('projects', JSON.stringify(currentProjects));
-//         let storedProjects = JSON.parse(localStorage.getItem('projects'));
+const saveProjects = (() => {
 
-//         return {storedProjects}
-//     }
+    const _storeProjects = () => {
+        const currentProjects = projectsController.projectsArray;
+        const currentDefaultProj = projectsController.defaultProject;
+        localStorage.setItem('projects', JSON.stringify(currentProjects));
+        localStorage.setItem('defaultProject', JSON.stringify(currentDefaultProj));
+    }
 
-//     const _displayStoredTasks = () => {
-    
-//     };
+    const _displayStoredTasks = () => {
 
-//     if(!localStorage.getItem('projects')){
-//         _storeProjects();
-//         projectsController.projectsArray = _storeProjects().storedProjects;
-//     }
-//     else{
-//         _storeProjects().storedProjects = JSON.parse(localStorage.getItem("projects"));
-//         projectsController.projectsArray = _storeProjects().storedProjects;
-//         projectsController.projectsArray.forEach(project => {
+        projectsController.defaultProject.tasks.forEach(task =>{
+            generateTaskDOM(task['title'], task['desc'], task['dueDate']);
+                const currentTasksDOM = Array.from(document.querySelectorAll('.task'));
+                currentTasksDOM.forEach(taskDOM => {
+                    const taskHeader = taskDOM.childNodes[0];
+                    const removeTask = taskDOM.querySelector('.checkbox');
+                    if (taskHeader.childNodes[1].nodeValue === task['title']){
+                        console.log('hello')
+                        removeTask.addEventListener('click', () => {
+                            const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(task);
+                            projectsController.defaultProject.tasks.splice(thisTaskIndex, 1); 
+                            localStorage.setItem('defaultProject', JSON.stringify(projectsController.defaultProject));
+                        })
+                    }
+                })
+        })
+        
+        projectsController.projectsArray.forEach(project => {
 
-//         })
-//         _displayStoredTasks();
-//     }
-// })();
+            generateProjTitleDOM(project['projectName']);
+            const projectItemsArray = Array.from(document.querySelectorAll('.project-item'));
+            projectItemsArray.forEach(proj => {
+                const projTitle = proj.childNodes[1]
+                if (projTitle.childNodes[0].textContent !== project['projectName'])return;
+                const closeProj = proj.childNodes[2];
+                closeProj.addEventListener('click', () => {
+                    const projectIndex =  projectsController.projectsArray.indexOf(project);
+                    projectsController.projectsArray.splice(projectIndex, 1);
+                    localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
+                })
+                localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
+            });
+
+            project['tasks'].forEach(task => {
+                generateTaskDOM(task['title'], task['desc'], task['dueDate']);
+                const currentTasksDOM = Array.from(document.querySelectorAll('.task'));
+                currentTasksDOM.forEach(taskDOM => {
+                    const taskHeader = taskDOM.childNodes[0];
+                    const removeTask = taskDOM.querySelector('.checkbox');
+                    if (taskHeader.childNodes[1].nodeValue === task['title']){
+                        taskDOM.setAttribute('style', 'display: none;')
+                        removeTask.addEventListener('click', () => {
+                            const thisTaskIndex = project.tasks.indexOf(task);
+                            project.tasks.splice(thisTaskIndex, 1); 
+                            localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
+                        })
+                    }
+                })
+            })
+        })
+    };
+
+    if(!localStorage.getItem('projects')){
+        _storeProjects();
+        // projectsController.projectsArray = _storeProjects().storedProjects;
+    }
+    else{
+        let storedProjects = JSON.parse(localStorage.getItem("projects"));
+        let storedDefaultProj = JSON.parse(localStorage.getItem("defaultProject"))
+        projectsController.defaultProject = storedDefaultProj;
+        projectsController.projectsArray = storedProjects;
+        _displayStoredTasks();
+    }
+})();
 

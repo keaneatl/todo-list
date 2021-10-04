@@ -125,7 +125,6 @@ const generateProjTitleDOM = (title) => {
     else {
         projTitle.textContent = title;
         projItem.addEventListener('click', () => renderProject(title))
-        addProj(title);
     }
     
     closeIcon.addEventListener('click', () => {
@@ -140,7 +139,7 @@ const newProject = (() => {
     newProjBtn.addEventListener('click', () => generateProjTitleDOM());
 })();
 
-export { hamBurger, generateTaskDOM, renderTaskDOM, newProject };
+export { hamBurger, generateTaskDOM, renderTaskDOM, newProject, generateProjTitleDOM };
 
 
 // backup code

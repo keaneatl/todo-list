@@ -16,22 +16,6 @@ const projectsController = (() => {
 
 const addProj = (type => {
     const projectItemsArray = Array.from(document.querySelectorAll('.project-item'));
-    if (projectsController.projectsArray.some(project => {
-        project['projectName'] === type;
-    })){
-        projectItemsArray.projectsArray.forEach(project => {
-            const projTitle = project.childNodes[1]
-            if (projTitle.childNodes[0].textContent === type){
-                const closeProj = project.childNodes[2];
-                closeProj.addEventListener('click', () => {
-                    const projectIndex =  projectsController.projectsArray.indexOf(newProject);
-                    projectsController.projectsArray.splice(projectIndex, 1);
-                })
-            }
-        })
-    }
-
-    else{
     const newProject = projectFactory(type);
     newProject.projectName = type;
 
@@ -40,16 +24,15 @@ const addProj = (type => {
         if (projTitle.childNodes[0].textContent !== type)return;
         const closeProj = project.childNodes[2];
 
+        projectsController.projectsArray.push(newProject);
         closeProj.addEventListener('click', () => {
             const projectIndex =  projectsController.projectsArray.indexOf(newProject);
             projectsController.projectsArray.splice(projectIndex, 1);
+            localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
         })
-
-        projectsController.projectsArray.push(newProject);
-        console.log(newProject)
+        localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
     });
     return { newProject }
-    }
     
 })
     
@@ -62,3 +45,20 @@ export { addProj, projectsController }
 //     projectsController.projectsArray.push(newProject);
 //     console.log(newProject);
 // });
+
+// if (projectsController.projectsArray.some(project => {
+//     project['projectName'] === type;
+// })){
+//     projectItemsArray.projectsArray.forEach(project => {
+//         const projTitle = project.childNodes[1]
+//         if (projTitle.childNodes[0].textContent === type){
+//             const closeProj = project.childNodes[2];
+//             closeProj.addEventListener('click', () => {
+//                 console.log('hi');
+//                 const projectIndex =  projectsController.projectsArray.indexOf(newProject);
+//                 projectsController.projectsArray.splice(projectIndex, 1);
+//                 localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
+//             })
+//         }
+//     })
+// }
