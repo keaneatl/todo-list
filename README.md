@@ -8,7 +8,7 @@
   </p>
 </p>
 
-<a href="https://keaneatl.github.io/todo-list/" target="_blank"><img src="/dist/images/livepreview.png" alt="Todo List App Live Preview"></a>
+<a href="https://keaneatl.github.io/todo-list/" target="_blank"><img src="./dist/images/livepreview.png" alt="Todo List App Live Preview"></a>
 
 <h2 style="display: inline-block">Table of Contents</h2>
 <ol>
