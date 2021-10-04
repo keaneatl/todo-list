@@ -1,4 +1,5 @@
 import resetCSS from './reset.css';
+import stylesCSS from './styles.css';
 import { hamBurger, renderTaskDOM, newProject, generateTaskDOM, generateProjTitleDOM } from './modules/interface';
 import { addTask } from './modules/task';
 import { renderHome } from './modules/switchDOM';
