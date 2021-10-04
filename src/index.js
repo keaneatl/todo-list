@@ -4,11 +4,6 @@ import { addTask } from './modules/task';
 import { renderHome } from './modules/switchDOM';
 import { addProj, projectsController } from './modules/project';
 
-// Logic to add and remove task from other projects' tasks array, -- CLEAR --
-// Logic to know which project we're in and load its respective task arrays to the DOM -- CLEAR --
-// Logic to sort tasks by date
-// save everything to local storage
-
 const saveProjects = (() => {
 
     const _storeProjects = () => {
@@ -27,7 +22,6 @@ const saveProjects = (() => {
                     const taskHeader = taskDOM.childNodes[0];
                     const removeTask = taskDOM.querySelector('.checkbox');
                     if (taskHeader.childNodes[1].nodeValue === task['title']){
-                        console.log('hello')
                         removeTask.addEventListener('click', () => {
                             const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(task);
                             projectsController.defaultProject.tasks.splice(thisTaskIndex, 1); 
@@ -74,7 +68,6 @@ const saveProjects = (() => {
 
     if(!localStorage.getItem('projects')){
         _storeProjects();
-        // projectsController.projectsArray = _storeProjects().storedProjects;
     }
     else{
         let storedProjects = JSON.parse(localStorage.getItem("projects"));

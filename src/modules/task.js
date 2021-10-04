@@ -8,13 +8,13 @@ const taskFactory = (title, desc, dueDate) => {
 
     return {title, desc, dueDate}
 }
-// TTD Add a task that's already in storage
-const addTask = (project, status) => {
+
+const addTask = project => {
     const newTask = taskFactory();
     let tasks = Array.from(document.querySelectorAll('.task'));
 
     if (project === 'Inbox'){
-        tasks.forEach((task, i) => {
+        tasks.forEach(task => {
             const taskHeaderText = task.querySelector('.task-h');
             if (taskHeaderText.textContent !== "")return;
 
@@ -38,7 +38,6 @@ const addTask = (project, status) => {
         projectsController.defaultProject.tasks.push(newTask);
         removeTask.addEventListener('click', () => {
             const thisTaskIndex = projectsController.defaultProject.tasks.indexOf(newTask);
-            console.log(thisTaskIndex)
             projectsController.defaultProject.tasks.splice(thisTaskIndex, 1);
             localStorage.setItem('defaultProject', JSON.stringify(projectsController.defaultProject));
         })
@@ -46,7 +45,7 @@ const addTask = (project, status) => {
         });
     }
     else {
-        tasks.forEach((task, i) => {
+        tasks.forEach(task => {
             const taskHeaderText = task.querySelector('.task-h');
             if (taskHeaderText.textContent !== "")return;
             const taskHeader = task.childNodes[0];
@@ -61,7 +60,6 @@ const addTask = (project, status) => {
             taskDesc.addEventListener('change', () => {
                 newTask.desc = taskDesc.childNodes[0].nodeValue;
                 localStorage.setItem('projects', JSON.stringify(projectsController.projectsArray));
-                console.log(newTask)
             });
             dueDate.addEventListener('change', () => {
                 newTask.dueDate = dueDate.childNodes[0].nodeValue;
@@ -87,17 +85,3 @@ const addTask = (project, status) => {
 };
 
 export { addTask }
-
-// //backup code
-// if(projectsController.projectsArray.some((project, i) => {
-//     project[0] === header.textContent;
-// })){
-//     const existingProject = projectsController.projectsArray.find( project => {
-//         project[0] === header.textContent;
-//     });
-//     existingProject[1].push(task)
-//     addProj().newProject.tasks = currentTasks;
-// }
-// else {
-//     addProj()
-// }

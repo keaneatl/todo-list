@@ -1,8 +1,7 @@
 // For Improvement:
 // In checking whether the task belongs to a specific project, use data index instead of 
-// matching the task titles
+// matching the task titles so the users adding two tasks of the same name would not crash the app
 import { projectsController } from "./project";
-import { generateTaskDOM } from "./interface";
 
 const renderHome = (() => {
     const header = document.querySelector('.display-lh');
@@ -42,7 +41,6 @@ const renderProject = (projTitle) => {
 
             projectsController.projectsArray.forEach(proj => {
                 if (proj['projectName'] === projTitle){
-                    console.log(proj)
                     proj['tasks'].forEach(task => {
                         for (let i = 0; i < currentRenderedTasks.length; i++){
                             if (task['title'] === currentRenderedTasks[i].childNodes[0].textContent){
@@ -53,7 +51,6 @@ const renderProject = (projTitle) => {
                 }
             })
         }
-        console.log(project)
     })
 };
 
