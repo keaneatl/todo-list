@@ -26,7 +26,9 @@
 </ol>
 
 ## About The Project
+
 ### Made With
+
 1. HTML
 2. CSS
 3. JavaScript
@@ -35,17 +37,20 @@
 6. Webpack
 
 ### Things I Learned
+
 1. Single Responsibility Principle
 2. Loosely and Tightly Coupled Objects
 
 ### Areas of improvement
+
 1. Dates could be formatted and manipulated better with date-fns library
 2. Checking whether a task belongs to a specific project could be more efficient
 3. Knowing whether or not to split features/functionalities into modules
 
 ## Disclaimer
-The resources I used, specifically the custom fonts installed, backgrounds, pictures, and the svg icons are only utilized for personal use, and not otherwise. 
+
+The resources I used, specifically the custom fonts installed, backgrounds, pictures, and the svg icons are only utilized for personal use, and not otherwise.
 
 ## Contact
-Keane Andre - @keaneatl (Instagram, Facebook, Twitter) - <a href="mailto:kyntltntn@protonmail.com">kyntltntn@protonmail.com</a>
 
+Keane Andre - @keaneatl (Instagram, Facebook, Twitter) - <a href="mailto:kyntltntn@protonmail.com">kyntltntn@protonmail.com</a>
