@@ -109,4 +109,4 @@ const addTask = (project) => {
   return { newTask };
 };
 
-export { addTask as default };
+export { addTask };
